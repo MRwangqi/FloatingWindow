@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="跳转页面" />
+
+    <Button
+        android:id="@+id/btnShow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="直接获取" />
+
+    <Button
+        android:id="@+id/btnDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="弹 dialog" />
+
+    <Button
+        android:id="@+id/btnPopWindow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="弹 popWindow" />
+</LinearLayout>
