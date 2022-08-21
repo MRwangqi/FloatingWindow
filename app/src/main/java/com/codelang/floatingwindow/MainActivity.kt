@@ -3,11 +3,11 @@ package com.codelang.floatingwindow
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.PopupWindow
@@ -41,6 +41,12 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnSysWindow).setOnClickListener {
             onSysWindow()
         }
+
+        findViewById<Button>(R.id.btnSysWindowPermission).setOnClickListener {
+            onSysWindowPermission()
+        }
+
+
     }
 
 
@@ -90,11 +96,15 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun onSysWindowPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+            startActivity(intent)
+        }
+    }
+
     private fun onSysWindow() {
-
-
-        // 故意从 application 获取 WindowManager
-        val wm = applicationContext.getSystemService(
+        val wm = getSystemService(
             WINDOW_SERVICE
         ) as WindowManager
 
@@ -105,8 +115,10 @@ class MainActivity : AppCompatActivity() {
             height = WindowManager.LayoutParams.WRAP_CONTENT
             flags =
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+            type = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+            } else {
+                WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
             }
         }
 
@@ -114,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         val mView: View = LayoutInflater.from(this).inflate(
             R.layout.popuplayout, null
         )
-        //单击View是关闭弹窗
+        //单击 View 关闭弹窗
         mView.setOnClickListener {
             wm.removeView(mView)
         }
@@ -126,18 +138,19 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun getFloatingWindow() {
-        val hasFloatingWindow = FloatingWindowManager.hasFloatingWindow(this)
-
+        // todo 1、是否有浮窗 window，通过 DecorView 来判断
+        val hasFloatingWindow = FloatingWindowManager.hasFloatingWindowView(this)
         Log.i("FloatingWindowManager", "hasFloatingWindow ---->${hasFloatingWindow}")
-        val views = FloatingWindowManager.getFloatWindowView(this)
 
+
+        val views = FloatingWindowManager.getFloatWindowView(this)
         views.forEach {
             Log.i("FloatingWindowManager", "FloatWindowView = ${it}")
         }
 
-
-        val hasFloatingParams = FloatingWindowManager.hasFloatWindowParams(this)
-        println("mParams hasFloatingWindow ---->${hasFloatingParams}")
+        // todo 2、是否有浮窗 window，通过 token 来判断
+        val hasFloatingToken = FloatingWindowManager.hasFloatWindowToken(this)
+        Log.i("FloatingWindowManager", "hasFloatingWindow ---->${hasFloatingToken}")
     }
 
 

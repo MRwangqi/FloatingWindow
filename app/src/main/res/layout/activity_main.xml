@@ -31,9 +31,28 @@
         android:layout_height="wrap_content"
         android:text="弹 popWindow" />
 
-    <Button
-        android:id="@+id/btnSysWindow"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="弹系统 dialog" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSysWindowPermission"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="授予弹窗权限" />
+
+        <Button
+            android:id="@+id/btnSysWindow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:text="弹系统弹框" />
+
+
+    </LinearLayout>
+
 </LinearLayout>
