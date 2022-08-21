@@ -38,6 +38,6 @@ internal class FloatingActivityLifecycle : Application.ActivityLifecycleCallback
 
 
     fun getActivities(): List<Activity> {
-        return arrayListOf<Activity>().apply { addAll(mActivities) }
+        return mActivities.toList()
     }
 }

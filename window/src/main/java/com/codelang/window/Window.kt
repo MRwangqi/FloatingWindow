@@ -8,6 +8,7 @@ package com.codelang.window
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 
 internal object Window {
 
@@ -38,6 +39,14 @@ internal object Window {
     }
 
 
+    private val mParams by lazy(LazyThreadSafetyMode.NONE) {
+        windowManagerClass?.let { windowManagerClass ->
+            windowManagerClass.getDeclaredField("mParams").apply { isAccessible = true }
+        }
+    }
+
+
+
     @SuppressLint("PrivateApi", "ObsoleteSdkInt", "DiscouragedPrivateApi")
     fun getViews(): List<View> {
         try {
@@ -51,4 +60,19 @@ internal object Window {
         }
         return arrayListOf()
     }
+
+    @SuppressLint("PrivateApi", "ObsoleteSdkInt", "DiscouragedPrivateApi")
+    fun getParams(): List<WindowManager.LayoutParams> {
+        try {
+            windowManagerInstance?.let { windowManagerInstance ->
+                mParams?.let { mViewsField ->
+                    return mViewsField[windowManagerInstance] as ArrayList<WindowManager.LayoutParams>
+                }
+            }
+        } catch (ignored: Throwable) {
+            Log.w("WindowManagerSpy", ignored)
+        }
+        return arrayListOf()
+    }
+
 }

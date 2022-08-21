@@ -30,4 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="弹 popWindow" />
+
+    <Button
+        android:id="@+id/btnSysWindow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="弹系统 dialog" />
 </LinearLayout>
