@@ -139,18 +139,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun getFloatingWindow() {
         // todo 1、是否有浮窗 window，通过 DecorView 来判断
-        val hasFloatingWindow = FloatingWindowManager.hasFloatingWindowView(this)
-        Log.i("FloatingWindowManager", "hasFloatingWindow ---->${hasFloatingWindow}")
-
-
-        val views = FloatingWindowManager.getFloatWindowView(this)
-        views.forEach {
-            Log.i("FloatingWindowManager", "FloatWindowView = ${it}")
+        val hasFloatingWindow = FloatingWindowManager.hasFloatingWindowByView(this)
+        Log.i("window", "hasFloatingWindowByView ---->${hasFloatingWindow}")
+        FloatingWindowManager.getFloatWindowViewByView(this).forEach {
+            Log.i("window", "floatWindowViewByView =====> $it")
         }
 
         // todo 2、是否有浮窗 window，通过 token 来判断
-        val hasFloatingToken = FloatingWindowManager.hasFloatWindowToken(this)
-        Log.i("FloatingWindowManager", "hasFloatingWindow ---->${hasFloatingToken}")
+        val hasFloatingToken = FloatingWindowManager.hasFloatWindowByToken(this)
+        Log.i("window", "hasFloatingWindowByToken ---->${hasFloatingToken}")
+        FloatingWindowManager.getFloatWindowViewByToken(this).forEach {
+            Log.i("window", "floatWindowViewByToken =====> $it")
+        }
+
     }
 
 
